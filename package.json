@@ -1,0 +1,32 @@
+{
+  "name": "instashop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "make start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "body-parser": "^1.17.2",
+    "config": "^1.26.1",
+    "es6-promise": "^4.1.0",
+    "express": "^4.15.3",
+    "preact": "^8.1.0",
+    "preact-router": "^2.5.2"
+  },
+  "devDependencies": {
+    "buble": "^0.15.2",
+    "buble-loader": "^0.4.1",
+    "css-loader": "^0.28.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "standard": "^10.0.2",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
+  }
+}
