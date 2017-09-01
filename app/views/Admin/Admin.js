@@ -1,17 +1,16 @@
 import React, { Component } from 'preact'
-import Auth from '../../utils/Auth'
+import { isAuthenticated, login } from '../../utils/Auth'
 
 export default class Admin extends Component {
   constructor (props) {
     super(props)
-    this.auth = new Auth()
     this.state = {
-      loggedIn: this.auth.isAuthenticated()
+      loggedIn: isAuthenticated()
     }
   }
   componentDidMount () {
     if (!this.state.loggedIn) {
-      this.auth.login()
+      login()
     }
   }
   render (props, state) {
