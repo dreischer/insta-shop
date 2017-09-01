@@ -14,12 +14,14 @@ export default class App extends React.Component {
     return (
       <div id='app'>
         <Header />
-        <Router onChange={this.handleRoute}>
-          <Home path='/' />
-          <Feed path='/feed' />
-          <Admin path='/admin' />
-          <NotFound type='404' default />
-        </Router>
+        <div class='content'>
+          <Router onChange={this.handleRoute}>
+            <Home path='/' />
+            <Feed path='/feed' />
+            <Admin path='/admin' />
+            <NotFound type='404' default />
+          </Router>
+        </div>
       </div>
     )
   }

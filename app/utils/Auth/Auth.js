@@ -1,5 +1,4 @@
 import auth0 from 'auth0-js'
-// import history from '../history'
 
 export default class Auth {
   constructor () {
@@ -17,6 +16,7 @@ export default class Auth {
     this.handleAuthentication = this.handleAuthentication.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
   }
+
   login () {
     this.auth0.authorize()
   }
@@ -25,9 +25,7 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        history.replace('/home')
       } else if (err) {
-        history.replace('/home')
         console.log(err)
       }
     })
@@ -35,26 +33,22 @@ export default class Auth {
 
   setSession (authResult) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
-    window.localstorage.setItem('access_token', authResult.accessToken)
-    window.localstorage.setItem('id_token', authResult.idToken)
-    window.localstorage.setItem('expires_at', expiresAt)
-    // navigate to the home route
-    history.replace('/home')
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+    window.localStorage.access_token = authResult.accessToken
+    window.localStorage.id_token = authResult.idToken
+    window.localStorage.expires_at = expiresAt
   }
 
   logout () {
-    // Clear access token and ID token from local storage
-    window.localstorage.removeItem('access_token')
-    window.localstorage.removeItem('id_token')
-    window.localstorage.removeItem('expires_at')
-    // navigate to the home route
-    history.replace('/home')
+    delete window.localStorage.access_token
+    delete window.localStorage.id_token
+    delete window.localStorage.expires_at
   }
 
   isAuthenticated () {
     // Check whether the current time is past the access token's expiry time
-    let expiresAt = JSON.parse(window.localstorage.getItem('expires_at'))
+    const val = window.localStorage.expires_at || '0'
+    const expiresAt = JSON.parse(val)
     return Date.now() < expiresAt
   }
 }

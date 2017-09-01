@@ -1,4 +1,23 @@
-import Auth from '../../components/Auth/Auth.js'
+import React, { Component } from 'preact'
+import Auth from '../../utils/Auth'
 
-const auth = new Auth()
-auth.login()
+export default class Feed extends Component {
+  constructor (props) {
+    super(props)
+    this.auth = new Auth()
+    this.state = {
+      loggedIn: this.auth.isAuthenticated()
+    }
+  }
+  componentDidMount () {
+    if (!this.state.loggedIn) {
+      this.auth.login()
+    }
+  }
+  render (props, state) {
+    const loggedIn = (<div />)
+    const notLoggedIn = (<div>{'You\'ll be redirected to log in'}</div>)
+
+    return this.state.loggedIn ? loggedIn : notLoggedIn
+  }
+}
