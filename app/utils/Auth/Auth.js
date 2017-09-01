@@ -5,7 +5,7 @@ export default class Auth {
     this.auth0 = new auth0.WebAuth({
       domain: 'insta-shop.eu.auth0.com',
       clientID: 'D3YH7UPhP9GkinKMj4X2SEVTRpvvW56i',
-      redirectUri: 'http://localhost:4000/admin',
+      redirectUri: 'http://localhost:4000/callback',
       audience: 'https://insta-shop.eu.auth0.com/userinfo',
       responseType: 'token id_token',
       scope: 'openid'

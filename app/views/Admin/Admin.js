@@ -1,7 +1,7 @@
 import React, { Component } from 'preact'
 import Auth from '../../utils/Auth'
 
-export default class Feed extends Component {
+export default class Admin extends Component {
   constructor (props) {
     super(props)
     this.auth = new Auth()

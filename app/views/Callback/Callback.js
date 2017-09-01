@@ -1,9 +1,10 @@
-import Component from 'preact'
-import { handleAuthentication } from '../../utils/Auth'
+import { Component } from 'preact'
+import Auth from '../../utils/Auth'
 
 export default class Callback extends Component {
   componentDidMount () {
-    handleAuthentication()
+    const auth = new Auth()
+    auth.handleAuthentication()
     window.location.href = '/admin'
   }
 
