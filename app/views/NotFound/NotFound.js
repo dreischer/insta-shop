@@ -1,5 +1,4 @@
 import React, { Component } from 'preact'
-import './NotFound.less'
 
 export default class NotFound extends Component {
   constructor (props) {

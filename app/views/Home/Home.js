@@ -1,6 +1,5 @@
 import React, { Component } from 'preact'
 import axios from 'axios'
-import './Home.less'
 
 export default class Home extends Component {
   constructor (props) {

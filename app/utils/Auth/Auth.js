@@ -1,6 +1,6 @@
-import auth0 from 'auth0-js'
+import { WebAuth } from 'auth0-js'
 
-const auth = new auth0.WebAuth({
+const auth = new WebAuth({
   domain: 'insta-shop.eu.auth0.com',
   clientID: 'D3YH7UPhP9GkinKMj4X2SEVTRpvvW56i',
   redirectUri: 'http://localhost:4000/callback',
@@ -44,4 +44,9 @@ function isAuthenticated () {
   return Date.now() < expiresAt
 }
 
-export default { login, logout, handleAuthentication, isAuthenticated }
+export {
+  login,
+  logout,
+  isAuthenticated,
+  handleAuthentication
+}
