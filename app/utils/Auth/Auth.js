@@ -4,9 +4,9 @@ const auth = new WebAuth({
   domain: 'insta-shop.eu.auth0.com',
   clientID: 'D3YH7UPhP9GkinKMj4X2SEVTRpvvW56i',
   redirectUri: 'http://localhost:4000/callback',
-  audience: 'https://insta-shop.eu.auth0.com/userinfo',
+  audience: 'http://localhost:4000',
   responseType: 'token id_token',
-  scope: 'openid'
+  scope: 'read:user_idp_tokens'
 })
 
 function login () {
@@ -14,13 +14,19 @@ function login () {
 }
 
 function handleAuthentication () {
-  auth.parseHash((err, authResult) => {
-    if (authResult && authResult.accessToken && authResult.idToken) {
-      setSession(authResult)
-    } else if (err) {
-      console.log(err)
-    }
+  const promise = new Promise(function (resolve, reject) {
+    auth.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        setSession(authResult)
+        resolve()
+      } else if (err) {
+        console.log(err)
+        reject(err)
+      }
+    })
   })
+
+  return promise
 }
 
 function setSession (authResult) {
@@ -44,9 +50,25 @@ function isAuthenticated () {
   return Date.now() < expiresAt
 }
 
+function getToken () {
+  const { access_token, id_token } = window.localStorage
+  return { access_token, id_token }
+}
+
+function getUserInfo () {
+  const token = getToken()
+  return new Promise(function (resolve, reject) {
+    auth.client.userInfo(token.access_token, function (err, user) {
+      err ? reject(err) : resolve(user)
+    })
+  })
+}
+
 export {
   login,
   logout,
   isAuthenticated,
-  handleAuthentication
+  handleAuthentication,
+  getToken,
+  getUserInfo
 }

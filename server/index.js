@@ -1,6 +1,8 @@
 const config = require('config')
 const express = require('express')
 const path = require('path')
+const jwt = require('express-jwt')
+const jwks = require('jwks-rsa')
 const bodyParser = require('body-parser')
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = express()
@@ -14,12 +16,24 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 if (dev) require('../webpack-dev')(app)
 
-app.get('/api/data', function (request, response) {
-  // mock API response
-  handleApiResponse(response, {
-    text: 'some text',
-    count: 12
-  })
+var jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://insta-shop.eu.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'http://localhost:4000', // TODO should be super secret?
+  issuer: 'https://insta-shop.eu.auth0.com/',
+  algorithms: ['RS256']
+})
+
+app.get('/api/data', jwtCheck, function (req, res) {
+  console.log(req)
+  res.send('ok')
+})
+app.get('/api/token', jwtCheck, function (req, res) {
+  res.status(200).send('ok')
 })
 
 app.get('*', function (request, response) {
@@ -29,17 +43,3 @@ app.get('*', function (request, response) {
 app.listen(config.port, () => {
   console.log(`Server listening on http://localhost:${config.port}`)
 })
-
-function handleApiResponse (response, data) {
-  response.json({
-    status: 200,
-    data: data
-  })
-}
-
-// function handleApiError (response, err) {
-//   response.json({
-//     status: 500,
-//     data: JSON.parse(JSON.stringify(err, ['message', 'arguments', 'type', 'name', 'description', 'stack']))
-//   })
-// }
