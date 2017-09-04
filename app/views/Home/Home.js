@@ -15,17 +15,15 @@ export default class Home extends Component {
   }
 
   componentDidMount () {
-    window.setTimeout(() => {
-      const token = getToken().access_token
-      const options = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+    const token = getToken().access_token
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-      axios.get('/api/data', options).then(data => {
-        this.setState(data.data)
-      })
-    }, 2000)
+    }
+    axios.get('/api/token', options).then(data => {
+      this.setState(data.data)
+    })
   }
 
   render () {

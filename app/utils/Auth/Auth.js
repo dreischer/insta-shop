@@ -6,7 +6,7 @@ const auth = new WebAuth({
   redirectUri: 'http://localhost:4000/callback',
   audience: 'http://localhost:4000',
   responseType: 'token id_token',
-  scope: 'read:user_idp_tokens'
+  scope: 'read:users read:user_idp_tokens openid profile'
 })
 
 function login () {

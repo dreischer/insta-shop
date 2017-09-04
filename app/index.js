@@ -1,8 +1,10 @@
 import React from 'preact'
 import App from './App'
+import axios from 'axios'
 
 window.Promise = window.Promise || require('es6-promise').Promise
 window.React = React
+window.axios = axios
 
 render()
 
