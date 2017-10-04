@@ -35,22 +35,15 @@ app.get('/api/data', jwtCheck, function (req, res) {
 })
 
 app.get('/api/token', jwtCheck, function (req, res) {
-  getInstagramToken('instagram|1461271483')
-    .then(data => {
-      console.log('oki doki')
-      res.send(data)
-    })
-    .catch(err => {
-      console.log('oh no')
-      console.log(err.response.data)
-      res.status(500).send(err.response.data)
-    })
+  getInstagramToken(req.user.sub)
+    .then(data => res.send(data))
+    .catch(err => res.status((err.response && err.response.data.statusCode) || 500).send(err.response.data))
 })
 
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, '../public/index.html'))
 })
 
-app.listen(config.port, () => {
+app.listen(config.port, function () {
   console.log(`Server listening on http://localhost:${config.port}`)
 })
