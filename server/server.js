@@ -4,7 +4,7 @@ const path = require('path')
 const jwt = require('express-jwt')
 const jwks = require('jwks-rsa')
 const bodyParser = require('body-parser')
-const getInstagramToken = require('./api/utils/getInstagramToken')
+const instagramFeed = require('./api/instagramFeed')
 
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = express()
@@ -30,14 +30,22 @@ var jwtCheck = jwt({
   algorithms: ['RS256']
 })
 
-app.get('/api/data', jwtCheck, function (req, res) {
-  res.send('ok')
-})
-
-app.get('/api/token', jwtCheck, function (req, res) {
-  getInstagramToken(req.user.sub)
+app.get('/api/admin/feed', jwtCheck, function (req, res) {
+  instagramFeed(req.user.sub)
     .then(data => res.send(data))
     .catch(err => res.status((err.response && err.response.data.statusCode) || 500).send(err.response.data))
+})
+
+app.get('/api/admin/selection', jwtCheck, function (req, res) {
+  // TODO get config from DB
+})
+
+app.post('/api/admin/selection', jwtCheck, function (req, res) {
+  // TODO save config to DB
+})
+
+app.get('/api/feed/:id', function (req, res) {
+  // TODO get feed to render app
 })
 
 app.get('*', function (request, response) {
