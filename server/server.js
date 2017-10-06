@@ -23,10 +23,10 @@ var jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://insta-shop.eu.auth0.com/.well-known/jwks.json'
+    jwksUri: `https://${config.auth0.id}.eu.auth0.com/.well-known/jwks.json`
   }),
-  audience: 'http://localhost:4000/ig',
-  issuer: 'https://insta-shop.eu.auth0.com/',
+  audience: config.auth0.app.audience,
+  issuer: `https://${config.auth0.id}.eu.auth0.com/`,
   algorithms: ['RS256']
 })
 
@@ -45,7 +45,7 @@ app.post('/api/admin/selection', jwtCheck, function (req, res) {
 })
 
 app.get('/api/feed/:id', function (req, res) {
-  // TODO get feed to render app
+  // TODO get feed to render app (mix of IG feed and selection)
 })
 
 app.get('*', function (request, response) {

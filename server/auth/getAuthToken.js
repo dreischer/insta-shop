@@ -1,17 +1,17 @@
 const axios = require('axios')
+const config = require('config')
 
 var options = {
   method: 'post',
-  url: 'https://insta-shop.eu.auth0.com/oauth/token',
+  url: `https://${config.auth0.id}.eu.auth0.com/oauth/token`,
   headers: {
     'content-type': 'application/json'
   },
   data: JSON.stringify({
-    // TODO top secret
-    'client_id': '86bvBejYoJua5a4jOJaSmbyMPWUdPQvU',
-    'client_secret': 't6VrBXy8rJMYEfQbScSeUeC858qCT0AmC92ufjFBFSs6Ju-gG_c2x7m7FlhIJ9Xo',
-    'audience': 'https://insta-shop.eu.auth0.com/api/v2/',
-    'grant_type': 'client_credentials'
+    client_id: config.auth0.server.client_id,
+    client_secret: config.auth0.server.client_secret,
+    audience: `https://${config.auth0.id}.eu.auth0.com/api/v2/`,
+    grant_type: config.auth0.server.grant_type
   })
 }
 
