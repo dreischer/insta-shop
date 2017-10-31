@@ -11,7 +11,12 @@ export default class Admin extends Component {
   }
   componentDidMount () {
     if (this.state.loggedIn) {
-      getUserInfo().then(userInfo => this.setState({ userInfo }))
+      getUserInfo().then(userInfo => {
+        this.setState({ userInfo })
+        this.props.split('header', {
+          icon: userInfo.picture
+        })
+      })
     } else {
       login()
     }

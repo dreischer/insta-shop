@@ -11,15 +11,16 @@ import Callback from './views/Callback'
 import './styles/index.less'
 
 export default class App extends React.Component {
-  render () {
+  render (props, state) {
+    const { atom, split } = props
     return (
       <div id='app'>
-        <Header />
+        <Header atom={atom} />
         <div class='content'>
           <Router onChange={this.handleRoute}>
             <Home path='/' />
             <Feed path='/feed' />
-            <Admin path='/admin' />
+            <Admin split={split} path='/admin' />
             <Callback path='/callback' />
             <NotFound type='404' default />
           </Router>
