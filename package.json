@@ -9,11 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "auth0-js": "^8.8.0",
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
     "config": "^1.26.1",
     "es6-promise": "^4.1.0",
     "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "jwks-rsa": "^1.2.0",
     "preact": "^8.1.0",
     "preact-router": "^2.5.2"
   },

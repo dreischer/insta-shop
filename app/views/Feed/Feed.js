@@ -1,5 +1,4 @@
 import React, { Component } from 'preact'
-import './Feed.less'
 
 export default class Feed extends Component {
   render () {
