@@ -1,7 +1,8 @@
 import React, { Component } from 'preact'
 import { Link } from 'preact-router'
-import './Header.less'
 import { logout } from '../../utils/Auth'
+
+import './Header.less'
 
 export default class Header extends Component {
   logout () {

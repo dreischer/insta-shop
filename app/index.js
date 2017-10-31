@@ -14,7 +14,7 @@ function evolve (getState, split, action) {
   const { type, payload } = action
 
   if (type === 'logout') {
-    split({ user: null })
+    split({ user: payload || null })
   }
 }
 
