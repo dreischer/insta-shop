@@ -1,20 +1,14 @@
 import React from 'preact'
-import App from './App'
 import axios from 'axios'
-
 import createAtom from 'tiny-atom'
+
+import App from './App'
 
 window.Promise = window.Promise || require('es6-promise').Promise
 window.React = React
 window.axios = axios
 
-let root
-
-const atom = createAtom({
-  header: {
-    icon: null
-  }
-}, evolve, render)
+const atom = createAtom({}, evolve, render)
 
 function evolve (getState, split, action) {
   const { type, payload } = action
@@ -25,6 +19,8 @@ function evolve (getState, split, action) {
 }
 
 render()
+
+let root
 
 function render () {
   root = React.render(<App atom={atom.get()} split={atom.split} />, document.getElementById('root'), root)

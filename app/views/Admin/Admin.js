@@ -9,18 +9,18 @@ export default class Admin extends Component {
       userInfo: null
     }
   }
+
   componentDidMount () {
     if (this.state.loggedIn) {
       getUserInfo().then(userInfo => {
         this.setState({ userInfo })
-        this.props.split('header', {
-          icon: userInfo.picture
-        })
+        this.props.split({ user: userInfo })
       })
     } else {
       login()
     }
   }
+
   render (props, state) {
     const loggedIn = (<div>{JSON.stringify(state.userInfo, null, 2)}</div>)
     const notLoggedIn = (<div>{'You\'ll be redirected to log in'}</div>)
