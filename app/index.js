@@ -13,8 +13,8 @@ const atom = createAtom({}, evolve, render)
 function evolve (getState, split, action) {
   const { type, payload } = action
 
-  if (type === 'header') {
-    split({ header: payload })
+  if (type === 'logout') {
+    split({ user: null })
   }
 }
 
