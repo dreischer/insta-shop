@@ -1,12 +1,15 @@
+import axios from 'axios'
 import React, { Component } from 'preact'
-import { isAuthenticated, login, getUserInfo } from '../../utils/Auth'
+import { isAuthenticated, login, getUserInfo, getToken } from '../../utils/Auth'
+import Feed from '../../components/Instagram/Feed'
 
 export default class Admin extends Component {
   constructor (props) {
     super(props)
     this.state = {
       loggedIn: isAuthenticated(),
-      userInfo: null
+      userInfo: null,
+      igFeed: null
     }
   }
 
@@ -16,15 +19,15 @@ export default class Admin extends Component {
         this.setState({ userInfo })
         this.props.split({ user: userInfo })
       })
+      axios.get('/api/admin/feed', { headers: { Authorization: `Bearer ${getToken().access_token}` } }).then(data => {
+        this.setState({ igFeed: data.data.data.data })
+      })
     } else {
       login()
     }
   }
 
   render (props, state) {
-    const loggedIn = (<div>{JSON.stringify(state.userInfo, null, 2)}</div>)
-    const notLoggedIn = (<div>{'You\'ll be redirected to log in'}</div>)
-
-    return this.state.loggedIn ? loggedIn : notLoggedIn
+    return this.state.igFeed ? <Feed data={this.state.igFeed} /> : <div>{'You\'ll be redirected to log in'}</div>
   }
 }
