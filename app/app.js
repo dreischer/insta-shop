@@ -25,7 +25,7 @@ export default class App extends React.Component {
           <Router onChange={this.routeUpdate.bind(this)}>
             <Home path='/' />
             <Feed path='/feed' />
-            <Admin split={split} path='/admin' />
+            <Admin split={split} atom={atom} path='/admin' />
             <Callback path='/callback' />
             <NotFound type='404' default />
           </Router>

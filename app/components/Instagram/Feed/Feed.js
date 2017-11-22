@@ -5,7 +5,9 @@ import './Feed.less'
 class Media extends Component {
   render (props, state) {
     return (
-      <img class='IG-image' src={props.image.images.standard_resolution.url} />
+      <div class='IG-image'>
+        <img src={props.image.images.standard_resolution.url} />
+      </div>
     )
   }
 }

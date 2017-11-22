@@ -1,7 +1,10 @@
 import axios from 'axios'
 import React, { Component } from 'preact'
 import { isAuthenticated, login, getUserInfo, getToken } from '../../utils/Auth'
+import { Link } from 'preact-router'
 import Feed from '../../components/Instagram/Feed'
+
+import './Admin.less'
 
 export default class Admin extends Component {
   constructor (props) {
@@ -28,6 +31,28 @@ export default class Admin extends Component {
   }
 
   render (props, state) {
-    return this.state.igFeed ? <Feed data={this.state.igFeed} /> : <div>{'You\'ll be redirected to log in'}</div>
+    const { atom } = props
+    const image = atom.user ? atom.user.picture : null
+    const title = atom.user && atom.user.name
+
+    return (
+      <div class='admin'>
+        <div class='admin-sidebar'>
+          <div class='admin-user'>
+            <img src={image} />
+            <div>{title}</div>
+          </div>
+          <ul class='admin-sections'>
+            <li><Link href='/admin#feed' class='active'>Feed</Link></li>
+            <li><Link href='/admin#preview'>Preview</Link></li>
+            <li><Link href='/admin#settings'>Settings</Link></li>
+          </ul>
+          <div class='admin-collapse'>Collapse</div>
+        </div>
+        <div class='admin-content'>
+          {this.state.igFeed ? <Feed data={this.state.igFeed} /> : 'Loading...'}
+        </div>
+      </div>
+    )
   }
 }
