@@ -1,30 +1,31 @@
 .header {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 56px;
   padding: 0;
-  background: #3b65a9;
+  background: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   z-index: 50;
 
   .header-icon {
-    max-height: 90%;
+    max-height: 80%;
     width: auto;
     display: inline-block;
-    vertical-align: center;
+    vertical-align: middle;
+    margin-left: 5px;
   }
 
   h1 {
     display: inline-block;
-    vertical-align: center;
+    vertical-align: middle;
     margin: 0;
     padding: 0 15px;
     font-size: 24px;
     line-height: 56px;
     font-weight: 400;
-    color: #fff;
+    color: #333;
   }
 
   nav {
@@ -40,11 +41,12 @@
       text-align: center;
       background: rgba(255,255,255,0);
       text-decoration: none;
-      color: #EEE;
+      color: #333;
       will-change: background-color;
+      cursor: pointer;
 
       &:hover, &:active {
-        background: rgba(255,255,255,0.3);
+        color: #000;
       }
     }
   }

@@ -1,12 +1,26 @@
 import React from 'preact'
-import App from './App'
 import axios from 'axios'
+import createAtom from 'tiny-atom'
+
+import App from './App'
 
 import createAtom from 'tiny-atom'
 
 window.Promise = window.Promise || require('es6-promise').Promise
 window.React = React
 window.axios = axios
+
+const atom = createAtom({}, evolve, render)
+
+function evolve (getState, split, action) {
+  const { type, payload } = action
+
+  if (type === 'logout') {
+    split({ user: payload || null })
+  }
+}
+
+render()
 
 let root
 

@@ -41,6 +41,8 @@ function logout () {
   delete window.localStorage.access_token
   delete window.localStorage.id_token
   delete window.localStorage.expires_at
+
+  window.location.href = '/'
 }
 
 function isAuthenticated () {
