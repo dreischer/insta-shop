@@ -20,7 +20,6 @@ export default class App extends React.Component {
     const { atom, split } = props
     return (
       <div id='app'>
-        <Header atom={atom} />
         <Header split={split} atom={atom} />
         <div class='content'>
           <Router onChange={this.routeUpdate.bind(this)}>
