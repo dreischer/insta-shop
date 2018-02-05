@@ -20,6 +20,11 @@ export default class Admin extends Component {
     if (this.state.loggedIn) {
       getUserInfo().then(userInfo => {
         this.setState({ userInfo })
+
+        this.props.split('header', {
+          icon: userInfo.picture
+        })
+
         this.props.split({ user: userInfo })
       })
       axios.get('/api/admin/feed', { headers: { Authorization: `Bearer ${getToken().access_token}` } }).then(data => {
