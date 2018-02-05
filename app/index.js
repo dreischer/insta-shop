@@ -2,41 +2,20 @@ import React from 'preact'
 import axios from 'axios'
 import createAtom from 'tiny-atom'
 
+import { getSavedUserInfo } from './utils/Auth'
 import App from './App'
-
-import createAtom from 'tiny-atom'
 
 window.Promise = window.Promise || require('es6-promise').Promise
 window.React = React
 window.axios = axios
 
-const atom = createAtom({}, evolve, render)
-
-function evolve (getState, split, action) {
-  const { type, payload } = action
-
-  if (type === 'logout') {
-    split({ user: payload || null })
-  }
-}
-
-render()
-
 let root
 
 const atom = createAtom({
-  header: {
-    icon: null
-  }
+  user: getSavedUserInfo() || null
 }, evolve, render)
 
-function evolve (getState, split, action) {
-  const { type, payload } = action
-
-  if (type === 'header') {
-    split({ header: payload })
-  }
-}
+function evolve (getState, split, action) {}
 
 render()
 

@@ -5,6 +5,7 @@ const jwt = require('express-jwt')
 const jwks = require('jwks-rsa')
 const bodyParser = require('body-parser')
 const instagramFeed = require('./api/instagramFeed')
+const products = require('./api/products')
 
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = express()
@@ -36,16 +37,16 @@ app.get('/api/admin/feed', jwtCheck, function (req, res) {
     .catch(err => res.status((err.response && err.response.data.statusCode) || 500).send(err.response.data))
 })
 
-app.get('/api/admin/selection', jwtCheck, function (req, res) {
-  // TODO get config from DB
+// Product catalogue
+app.get('/api/admin/products', jwtCheck, function (req, res) {
+  products.get(req.user.sub).then(function (result) {
+    res.send(result)
+  })
 })
-
-app.post('/api/admin/selection', jwtCheck, function (req, res) {
-  // TODO save config to DB
-})
-
-app.get('/api/feed/:id', function (req, res) {
-  // TODO get feed to render app (mix of IG feed and selection)
+app.post('/api/admin/products', jwtCheck, function (req, res) {
+  products.add(req.user.sub, req.body).then(function (result) {
+    res.send(result)
+  })
 })
 
 app.get('*', function (request, response) {

@@ -1,8 +1,9 @@
-import axios from 'axios'
+
 import React, { Component } from 'preact'
-import { isAuthenticated, login, getUserInfo, getToken } from '../../utils/Auth'
-import { Link } from 'preact-router'
-import Feed from '../../components/Instagram/Feed'
+import { isAuthenticated, login } from '../../utils/Auth'
+import Sidebar from '../../components/Sidebar'
+import Feed from './Feed'
+import Products from './Products'
 
 import './Admin.less'
 
@@ -10,52 +11,37 @@ export default class Admin extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loggedIn: isAuthenticated(),
-      userInfo: null,
-      igFeed: null
+      loggedIn: isAuthenticated()
     }
   }
 
   componentDidMount () {
-    if (this.state.loggedIn) {
-      getUserInfo().then(userInfo => {
-        this.setState({ userInfo })
-
-        this.props.split('header', {
-          icon: userInfo.picture
-        })
-
-        this.props.split({ user: userInfo })
-      })
-      axios.get('/api/admin/feed', { headers: { Authorization: `Bearer ${getToken().access_token}` } }).then(data => {
-        this.setState({ igFeed: data.data.data.data })
-      })
-    } else {
+    if (!this.state.loggedIn) {
       login()
     }
   }
 
   render (props, state) {
     const { atom } = props
-    const image = atom.user ? atom.user.picture : null
-    const title = atom.user && atom.user.name
+    let content
+
+    switch (props.matches.route) {
+      case 'preview':
+        content = 'TODO'
+        break
+      case 'products':
+        content = <Products />
+        break
+      default:
+        content = <Feed />
+        break
+    }
 
     return (
       <div class='admin'>
-        <div class='admin-sidebar'>
-          <div class='admin-user'>
-            <img src={image} />
-            <div>{title}</div>
-          </div>
-          <ul class='admin-sections'>
-            <li><Link href='/admin#feed' class='active'>Feed</Link></li>
-            <li><Link href='/admin#preview'>Preview</Link></li>
-            <li><Link href='/admin#settings'>Settings</Link></li>
-          </ul>
-          <div class='admin-collapse'>Collapse</div>
-        </div>
+        <Sidebar atom={atom} />
         <div class='admin-content'>
-          {this.state.igFeed ? <Feed data={this.state.igFeed} /> : 'Loading...'}
+          {content}
         </div>
       </div>
     )

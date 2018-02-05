@@ -41,6 +41,7 @@ function logout () {
   delete window.localStorage.access_token
   delete window.localStorage.id_token
   delete window.localStorage.expires_at
+  delete window.localStorage.user_info
 
   window.location.href = '/'
 }
@@ -66,11 +67,25 @@ function getUserInfo () {
   })
 }
 
+function saveUserInfo (userInfo) {
+  window.localStorage.user_info = JSON.stringify(userInfo)
+}
+
+function getSavedUserInfo () {
+  if (isAuthenticated() && window.localStorage.user_info) {
+    return JSON.parse(window.localStorage.user_info)
+  } else {
+    return null
+  }
+}
+
 export {
   login,
   logout,
   isAuthenticated,
   handleAuthentication,
   getToken,
-  getUserInfo
+  getUserInfo,
+  saveUserInfo,
+  getSavedUserInfo
 }

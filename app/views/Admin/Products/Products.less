@@ -1,0 +1,81 @@
+.products-container {
+  text-align: left;
+}
+
+.product {
+  width: 280px;
+  height: 280px;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  margin: 20px;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.product .product-edit {
+  display: none;
+}
+
+.product:hover .product-edit {
+  display: block;
+  background: #d8d8d866;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  span {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAB5UlEQVR4Xu3Wu03EQBCA4f8yEiQKoBEyAjogoAISEiRCxBsqIEEigQ6IkUgohgKICUBGOLEOe3a8O56x19np7LP/z/u4FQs/VgvvpwLUEbBwgToFFj4A6iIYdQqcAKfABvAENJ+/NKM5IsAtcNaJfQEONAjRANbFtxYqhEgAffFqhCgAkngVQgSAQ+AxcYETT4cIAJvAK7BTAiECQNOtRbgHjvvgvALsAW+dB9cgfAJb0QDaBe8OOB+J8AFsRwLorvZjEY6AhygA/211WoRm9DTX9h5e1oChfT4VQRTfyHgAGIpv36AUQRzvAUAaL0VIip8aIDV+CGEfeB6a893vp5oC2vg+hNT23/OnABgbnxXBGiBXfIuwC7yrXv3fRZYAueOTF7x1UFYALuOt1gC38RYAruNLA7iPLwkQIr4UQJj4EgC54y+A5jeLHTm3wXDxOUdAyPhcAGHjcwCEjh8LED5+DMAs4rUAs4nXAOSOvwRuim3ygh9O+R8wu/iUETDLeCnAbOOlAN+CqSQ9ZfI5331QyRqQC8BdvOUIcBlvBXAFXEvniPV5paeA6/jSI8B9fEmAEPGlAMLElwAIFZ8bIFy8FMB6ZzK9n2QbNH0g65tVAGtxb/erI8DbG7F+njoCrMW93e8HsyJ1QcIBmsgAAAAASUVORK5CYII=);
+    display: block;
+    width: 58px;
+    height: 58px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 10px;
+    opacity: 0.9;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 50%;
+    margin-top: -20px;
+    position: absolute;
+  }
+}
+.product img {
+  height: 100%;
+  width: auto;
+  height: 100%;
+}
+
+.product p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 5px 0px;
+  margin: 0;
+  background: #d8d8d866;
+}
+
+.product.new-product {
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  background: #d8d8d866;
+  cursor: pointer;
+}
+
+.product.new-product:before {
+  content: "+";
+  display: block;
+  font-size: 80px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}

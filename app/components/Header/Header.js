@@ -8,15 +8,14 @@ export default class Header extends Component {
   render (props, state) {
     const { atom } = props
     const logoutLink = atom.user ? <Link onclick={logout} >Logout</Link> : null
-    const image = atom.header.icon ? <img class='header-icon' src={atom.header.icon} /> : null
 
     return (
       <header className='header'>
-        {image}
-        <h1>Preact App</h1>
+        <Link href='/'>
+          <h1>Insta Shop</h1>
+        </Link>
         <nav>
-          <Link href='/'>Home</Link>
-          <Link href='/admin'>Admin</Link>
+          <Link href='/admin/feed'>Admin</Link>
           {logoutLink}
         </nav>
       </header>
