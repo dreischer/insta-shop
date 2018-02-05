@@ -13,11 +13,16 @@ class Row extends Component {
   }
 }
 
+class Buttons extends Component {
+
+}
+
 export default class ProductBox extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      image: props.data && props.data.image
+      image: props.data && props.data.image,
+      data: props.data || {}
     }
   }
 
@@ -27,13 +32,11 @@ export default class ProductBox extends Component {
 
   render (props, state) {
     let headerText
-    let data = props.data
 
-    if (data) {
+    if (state.data._id) {
       headerText = 'Update product details'
     } else {
       headerText = 'Add new product'
-      data = {}
     }
 
     return (
@@ -47,10 +50,10 @@ export default class ProductBox extends Component {
               <img src={this.state.image} />
             </div>
             <div class='product-modal-right'>
-              <Row label={'Name'} type={'text'} value={data.name} />
-              <Row label={'Link'} type={'text'} value={data.url} />
-              <Row label={'Image'} type={'text'} value={data.image} />
-              <Row label={'Enabled'} type={'checkbox'} value={data.active} />
+              <Row label={'Name'} type={'text'} value={state.data.name} />
+              <Row label={'Link'} type={'text'} value={state.data.url} />
+              <Row label={'Image'} type={'text'} value={state.data.image} />
+              <Row label={'Enabled'} type={'checkbox'} value={state.data.active} />
             </div>
           </div>
         </div>

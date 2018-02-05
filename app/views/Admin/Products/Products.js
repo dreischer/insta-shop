@@ -45,7 +45,7 @@ class Product extends Component {
     return (
       <div class={className} >
         {editWindow}
-        <div class='product-edit'><span onClick={toggle} /></div>
+        <div class='product-edit' onClick={toggle}><span /></div>
         <img src={props.data.image} />
         <p>{props.data.name}</p>
       </div>
