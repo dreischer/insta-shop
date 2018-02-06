@@ -1,6 +1,5 @@
 
 import React, { Component } from 'preact'
-import { isAuthenticated, login } from '../../utils/Auth'
 import Sidebar from '../../components/Sidebar'
 import Feed from './Feed'
 import Products from './Products'
@@ -8,19 +7,6 @@ import Products from './Products'
 import './Admin.less'
 
 export default class Admin extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      loggedIn: isAuthenticated()
-    }
-  }
-
-  componentDidMount () {
-    if (!this.state.loggedIn) {
-      login()
-    }
-  }
-
   render (props, state) {
     const { atom } = props
     let content

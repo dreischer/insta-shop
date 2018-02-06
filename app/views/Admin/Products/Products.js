@@ -1,6 +1,5 @@
-import axios from 'axios'
 import React, { Component } from 'preact'
-import { getToken } from '../../../utils/Auth'
+import { getAllProducts } from './ProductApi'
 import ProductBox from './ProductBox'
 
 import './Products.less'
@@ -15,7 +14,7 @@ class NewProduct extends Component {
 
   render (props, state) {
     const toggle = (e) => this.setState({ edit: !this.state.edit })
-    const editWindow = state.edit ? <ProductBox close={toggle} /> : null
+    const editWindow = state.edit ? <ProductBox {...props} close={toggle} /> : null
 
     return (
       <div class='product'>
@@ -40,7 +39,7 @@ class Product extends Component {
     const toggle = (e) => this.setState({ edit: !this.state.edit })
     const enabled = props.data.active ? '' : 'disabled'
     const className = `product ${enabled}`
-    const editWindow = state.edit ? <ProductBox close={toggle} data={props.data} /> : null
+    const editWindow = state.edit ? <ProductBox {...props} close={toggle} /> : null
 
     return (
       <div class={className} >
@@ -62,13 +61,40 @@ export default class Feed extends Component {
   }
 
   componentDidMount () {
-    axios.get('/api/admin/products', { headers: { Authorization: `Bearer ${getToken().access_token}` } }).then(data => {
-      this.setState({ products: data.data })
+    getAllProducts().then(data => {
+      this.setState({ products: data })
     })
   }
 
+  addProduct (product) {
+    const products = [product, ...this.state.products]
+    this.setState({ products })
+  }
+
+  deleteProduct (i) {
+    return () => {
+      const products = [...this.state.products]
+      products.splice(i, 1)
+      this.setState({ products })
+    }
+  }
+
+  updateProduct (i) {
+    return (newProduct) => {
+      const products = [...this.state.products]
+      products[i] = newProduct
+      this.setState({ products })
+    }
+  }
+
   getProducts () {
-    return this.state.products.map(product => <Product data={product} />)
+    return this.state.products.map((product, i) => {
+      const props = {
+        onDelete: this.deleteProduct(i),
+        onUpdate: this.updateProduct(i)
+      }
+      return <Product {...props} data={product} />
+    })
   }
 
   render (props, state) {
@@ -76,7 +102,7 @@ export default class Feed extends Component {
 
     return (
       <div class='products-container'>
-        <NewProduct />
+        <NewProduct onAdd={this.addProduct.bind(this)} />
         {content}
       </div>
     )

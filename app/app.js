@@ -1,22 +1,20 @@
 import React from 'preact'
 import Router from 'preact-router'
 
-// import { isAuthenticated, logout } from './utils/Auth'
+import { isAuthenticated, login } from './utils/Auth'
 import Header from './components/Header'
 import Home from './views/Home'
 import NotFound from './views/NotFound'
 import Admin from './views/Admin'
 import Callback from './views/Callback'
 
-import './styles/index.less'
+import './app.less'
 
 export default class App extends React.Component {
   routeUpdate (router) {
-    // const sessionExpired = this.props.atom.user && !isAuthenticated()
-    //
-    // if (sessionExpired && router.url !== '/' && router.url !== '/callback') {
-    //   logout(this.props.atom.split)
-    // }
+    if (!isAuthenticated() && /\/admin/.test(router.url)) {
+      login()
+    }
   }
 
   render (props, state) {

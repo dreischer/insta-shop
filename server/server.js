@@ -39,12 +39,22 @@ app.get('/api/admin/feed', jwtCheck, function (req, res) {
 
 // Product catalogue
 app.get('/api/admin/products', jwtCheck, function (req, res) {
-  products.get(req.user.sub).then(function (result) {
+  products.getAllProducts(req.user.sub).then(function (result) {
     res.send(result)
   })
 })
 app.post('/api/admin/products', jwtCheck, function (req, res) {
-  products.add(req.user.sub, req.body).then(function (result) {
+  products.addProduct(req.user.sub, req.body).then(function (result) {
+    res.send(result)
+  })
+})
+app.delete('/api/admin/products/:_id', jwtCheck, function (req, res) {
+  products.deleteProduct(req.user.sub, req.params._id).then(function (result) {
+    res.send(result)
+  })
+})
+app.put('/api/admin/products/:_id', jwtCheck, function (req, res) {
+  products.updateProduct(req.user.sub, req.params._id, req.body).then(function (result) {
     res.send(result)
   })
 })

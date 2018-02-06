@@ -4,7 +4,7 @@ import './Button.less'
 
 export default class Button extends Component {
   render (props, state) {
-    const { config } = props
+    const { colour, onClick, text } = props
     const colours = {
       green: {
         background: '#47b28d',
@@ -19,7 +19,7 @@ export default class Button extends Component {
       }
     }
     return (
-      <button style={colours[config.colour]} onClick={config.action}>{config.text}</button>
+      <button style={colours[colour]} onClick={onClick}>{text}</button>
     )
   }
 }
