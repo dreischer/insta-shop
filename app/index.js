@@ -12,7 +12,11 @@ window.axios = axios
 let root
 
 const atom = createAtom({
-  user: getSavedUserInfo() || null
+  user: getSavedUserInfo() || null,
+  feed: {
+    nodes: null,
+    nextPointer: null
+  }
 }, evolve, render)
 
 function evolve (getState, split, action) {}
@@ -20,7 +24,7 @@ function evolve (getState, split, action) {}
 render()
 
 function render () {
-  root = React.render(<App atom={atom.get()} split={atom.split} />, document.getElementById('root'), root)
+  root = React.render(<App atom={atom} />, document.getElementById('root'), root)
 }
 
 // in development, set up HMR:

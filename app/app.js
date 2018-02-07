@@ -18,15 +18,15 @@ export default class App extends React.Component {
   }
 
   render (props, state) {
-    const { atom, split } = props
+    const { atom } = props
     return (
       <div id='app'>
-        <Header split={split} atom={atom} />
+        <Header atom={atom} />
         <div class='content'>
           <Router onChange={this.routeUpdate.bind(this)}>
             <Home path='/' />
             <Admin atom={atom} path='/admin/:route?' />
-            <Callback split={split} path='/callback' />
+            <Callback atom={atom} path='/callback' />
             <NotFound type='404' default />
           </Router>
         </div>

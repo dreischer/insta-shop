@@ -8,6 +8,7 @@ export default class Sidebar extends Component {
     const { atom } = props
     const image = atom.user ? atom.user.picture : null
     const title = atom.user && atom.user.name
+    const links = this.props.links.map(link => <li><Link activeClassName='active' href={link.href}>{link.text}</Link></li>)
 
     return (
       <div class='admin-sidebar'>
@@ -16,9 +17,7 @@ export default class Sidebar extends Component {
           <div>{title}</div>
         </div>
         <ul class='admin-sections'>
-          <li><Link activeClassName='active' href='/admin/feed'>Feed</Link></li>
-          <li><Link activeClassName='active' href='/admin/preview'>Preview</Link></li>
-          <li><Link activeClassName='active' href='/admin/products'>Products</Link></li>
+          {links}
         </ul>
         <div class='admin-collapse'>Collapse</div>
       </div>
