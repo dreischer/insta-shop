@@ -61,7 +61,7 @@ export default class Feed extends Component {
     return (
       <div>
         {content}
-        <button value='Load more' onClick={this.loadFeed.bind(this)} />
+        <button onClick={this.loadFeed.bind(this)}>Load more</button>
       </div>
     )
   }

@@ -19,7 +19,7 @@ export default class Button extends Component {
       }
     }
     return (
-      <button style={colours[colour]} onClick={onClick}>{text}</button>
+      <button class='button' style={colours[colour]} onClick={onClick}>{text}</button>
     )
   }
 }
