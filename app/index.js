@@ -15,7 +15,8 @@ const atom = createAtom({
   user: getSavedUserInfo() || null,
   feed: {
     nodes: null,
-    nextPointer: null
+    nextPointer: null,
+    hasNextPage: true
   }
 }, evolve, render)
 
