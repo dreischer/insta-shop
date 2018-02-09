@@ -38,7 +38,7 @@ export default class Feed extends Component {
   loadFeed () {
     if (!this.state.hasNextPage) {
       this.stopScroll()
-      return
+      return Promise.resolve()
     }
 
     const nextParam = this.state.nextPointer ? `&max_id=${this.state.nextPointer}` : ''
