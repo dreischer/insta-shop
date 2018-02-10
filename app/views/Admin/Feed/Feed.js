@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'preact'
 import { getSavedUserInfo } from '../../../utils/Auth'
+import InfiniteScroll from '../../../components/InfiniteScroll'
 
 import './Feed.less'
 
@@ -19,25 +20,27 @@ export default class Feed extends Component {
     super(props)
     const atom = props.atom.get()
     this.state = {
-      feed: atom.feed.nodes || [],
-      nextPointer: atom.feed.nextPointer || null
+      nodes: atom.feed.nodes || [],
+      nextPointer: atom.feed.nextPointer || null,
+      hasNextPage: atom.feed.hasNextPage || true
     }
   }
 
   setFeed (media) {
-    const nextPointer = media.page_info.has_next_page ? media.page_info.end_cursor : null
-    const newFeed = [...this.state.feed, ...media.nodes]
+    const nodes = [...this.state.nodes, ...media.nodes]
+    const { has_next_page: hasNextPage, end_cursor: nextPointer } = media.page_info
+    const feed = { nodes, nextPointer, hasNextPage }
 
-    this.setState({ nextPointer: nextPointer })
-    this.setState({ feed: newFeed })
-
-    const feed = Object.assign({}, this.props.atom.get().cache)
-    feed.nodes = newFeed
-    feed.nextPointer = nextPointer
+    this.setState({ ...feed })
     this.props.atom.split({ feed })
   }
 
   loadFeed () {
+    if (!this.state.hasNextPage) {
+      this.stopScroll()
+      return Promise.resolve()
+    }
+
     const nextParam = this.state.nextPointer ? `&max_id=${this.state.nextPointer}` : ''
     const userName = getSavedUserInfo().nickname
     const url = `https://www.instagram.com/${userName}/?__a=1`
@@ -45,24 +48,21 @@ export default class Feed extends Component {
     return axios.get(url + nextParam).then(respons => this.setFeed(respons.data.user.media))
   }
 
-  componentDidMount () {
-    if (!this.state.feed.length) {
-      this.loadFeed()
-    }
-  }
-
-  getMedia () {
-    return this.state.feed.map(image => <Media image={image} />)
+  feed (stop) {
+    this.stopScroll = stop
+    const media = this.state.nodes.map(image => <Media image={image} />)
+    return (
+      <div class='feed-scroll'>
+        { media }
+      </div>
+    )
   }
 
   render (props, state) {
-    const content = this.state.feed.length ? this.getMedia() : 'Loading...'
-
     return (
-      <div>
-        {content}
-        <button onClick={this.loadFeed.bind(this)}>Load more</button>
-      </div>
+      <InfiniteScroll action={this.loadFeed.bind(this)} >
+        { this.feed.bind(this) }
+      </InfiniteScroll>
     )
   }
 }
