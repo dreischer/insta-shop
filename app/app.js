@@ -8,7 +8,7 @@ import NotFound from './views/NotFound'
 import Admin from './views/Admin'
 import Callback from './views/Callback'
 
-import './app.less'
+import './app.css'
 
 export default class App extends React.Component {
   routeUpdate (router) {

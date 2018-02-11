@@ -6,8 +6,7 @@
 }
 
 .IG-image {
-  width: 280px;
-  height: 280px;
+  width: 33%;
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
@@ -16,7 +15,6 @@
 }
 
 .IG-image img {
-  height: 100%;
-  width: auto;
-  height: 100%;
+  height: auto;
+  width: 100%;
 }

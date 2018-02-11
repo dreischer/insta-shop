@@ -1,6 +1,6 @@
 import React, { Component } from 'preact'
 
-import './Button.less'
+import './Button.css'
 
 export default class Button extends Component {
   render (props, state) {

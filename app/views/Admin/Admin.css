@@ -10,7 +10,7 @@
 }
 
 .admin-content {
-  width: ~'calc(100% - 200px)';
+  width: calc(100% - 200px);
   background: #fff;
   display: flex;
 }

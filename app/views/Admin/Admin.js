@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar'
 import Feed from './Feed'
 import Products from './Products'
 
-import './Admin.less'
+import './Admin.css'
 
 export default class Admin extends Component {
   render (props, state) {

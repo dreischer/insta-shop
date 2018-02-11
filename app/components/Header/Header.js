@@ -2,7 +2,7 @@ import React, { Component } from 'preact'
 import { Link } from 'preact-router'
 import { logout } from '../../utils/Auth'
 
-import './Header.less'
+import './Header.css'
 
 export default class Header extends Component {
   render (props, state) {

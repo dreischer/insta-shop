@@ -1,7 +1,7 @@
 import React, { Component } from 'preact'
 import throttle from '../../utils/throttle'
 
-import './InfiniteScroll.less'
+import './InfiniteScroll.css'
 
 export default class Sidebar extends Component {
   constructor (props) {

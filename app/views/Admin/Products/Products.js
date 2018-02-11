@@ -2,7 +2,7 @@ import React, { Component } from 'preact'
 import { getAllProducts } from './ProductApi'
 import ProductBox from './ProductBox'
 
-import './Products.less'
+import './Products.css'
 
 class NewProduct extends Component {
   constructor (props) {

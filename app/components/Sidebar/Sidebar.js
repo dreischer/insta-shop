@@ -1,7 +1,7 @@
 import React, { Component } from 'preact'
 import { Link } from 'preact-router/match'
 
-import './Sidebar.less'
+import './Sidebar.css'
 
 export default class Sidebar extends Component {
   render (props, state) {

@@ -1,11 +1,3 @@
-.flex-it {
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  overflow: hidden;
-  overflow-y: auto;
-}
 .admin-sidebar {
   width: 200px;
   display: inline-block;
@@ -14,7 +6,12 @@
   color: #fff;
   padding: 20px 0 0 20px;
 
-  .flex-it;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
 }
 .admin-user {
   margin-bottom: 20px;
