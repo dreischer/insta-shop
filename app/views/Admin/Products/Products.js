@@ -55,20 +55,25 @@ class Product extends Component {
 export default class Feed extends Component {
   constructor (props) {
     super(props)
+    const atom = props.atom.get()
     this.state = {
-      products: null
+      products: atom.products || null
     }
   }
 
   componentDidMount () {
-    getAllProducts().then(data => {
-      this.setState({ products: data })
-    })
+    if (!this.state.products) {
+      getAllProducts().then(products => {
+        this.setState({ products })
+        this.props.atom.split({ products })
+      })
+    }
   }
 
   addProduct (product) {
     const products = [product, ...this.state.products]
     this.setState({ products })
+    this.props.atom.split({ products })
   }
 
   deleteProduct (i) {
@@ -76,6 +81,7 @@ export default class Feed extends Component {
       const products = [...this.state.products]
       products.splice(i, 1)
       this.setState({ products })
+      this.props.atom.split({ products })
     }
   }
 
@@ -84,6 +90,7 @@ export default class Feed extends Component {
       const products = [...this.state.products]
       products[i] = newProduct
       this.setState({ products })
+      this.props.atom.split({ products })
     }
   }
 
@@ -98,7 +105,7 @@ export default class Feed extends Component {
   }
 
   render (props, state) {
-    const content = this.state.products ? this.getProducts() : 'Loading...'
+    const content = state.products ? this.getProducts() : 'Loading...'
 
     return (
       <div class='products-container'>

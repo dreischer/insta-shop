@@ -21,7 +21,7 @@ export default class Admin extends Component {
         content = 'TODO'
         break
       case 'products':
-        content = <Products />
+        content = <Products atom={atom} />
         break
       default:
         content = <Feed atom={atom} />

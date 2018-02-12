@@ -17,7 +17,8 @@ const atom = createAtom({
     nodes: null,
     nextPointer: null,
     hasNextPage: true
-  }
+  },
+  products: null
 }, evolve, render)
 
 function evolve (getState, split, action) {}
