@@ -1,10 +1,3 @@
-.feed-scroll {
-  overflow: hidden;
-  overflow-y: auto;
-  padding: 20px;
-  text-align: center;
-}
-
 .IG-image {
   width: 33%;
   display: inline-block;
@@ -12,9 +5,14 @@
   box-sizing: border-box;
   padding: 20px;
   text-align: center;
+  cursor: pointer;
 }
 
 .IG-image img {
   height: auto;
   width: 100%;
+}
+
+.IG-image-disabled {
+  opacity: 0.5;
 }

@@ -52,7 +52,6 @@ export default class Sidebar extends Component {
   }
 
   render (props, state) {
-    console.log('render scroll ', state)
     const getRef = (node) => { this.node = node }
     const loading = this.state.loading ? <div class='infiniteScroll-loading' /> : null
     const stopFunction = this.stopListening.bind(this)

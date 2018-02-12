@@ -1,19 +1,8 @@
 import axios from 'axios'
 import React, { Component } from 'preact'
-import { getSavedUserInfo } from '../../../../utils/Auth'
-import InfiniteScroll from '../../../../components/InfiniteScroll'
-
-import './InstaFeed.css'
-
-class Media extends Component {
-  render (props, state) {
-    return (
-      <div class='IG-image'>
-        <img src={props.image.thumbnail_resources[2].src} />
-      </div>
-    )
-  }
-}
+import { getSavedUserInfo } from '../../../utils/Auth'
+import InfiniteScroll from '../../../components/InfiniteScroll'
+import Image from '../../../components/Image'
 
 export default class InstaFeed extends Component {
   constructor (props) {
@@ -50,10 +39,15 @@ export default class InstaFeed extends Component {
 
   feed (stop) {
     this.stopScroll = stop
-    const media = this.state.nodes.map(image => <Media image={image} />)
+    const images = this.state.nodes.map(image => {
+      const disabled = this.props.selectionIds.indexOf(image.id) !== -1
+      const clickFunction = () => this.props.addToSelection(image)
+
+      return <Image disabled={disabled} onClick={clickFunction} image={image} />
+    })
     return (
       <div class='feed-scroll'>
-        { media }
+        { images }
       </div>
     )
   }

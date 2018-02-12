@@ -18,7 +18,11 @@ const atom = createAtom({
     nextPointer: null,
     hasNextPage: true
   },
-  products: null
+  products: null,
+  selection: {
+    nodes: null,
+    selectionIds: null
+  }
 }, evolve, render)
 
 function evolve (getState, split, action) {}
