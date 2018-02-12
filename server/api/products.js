@@ -1,17 +1,5 @@
-const config = require('config')
-const MongoClient = require('mongodb').MongoClient
+const database = require('../db/db.js').getDB()
 const ObjectID = require('mongodb').ObjectID
-
-let database
-
-MongoClient.connect(config.db.url, (err, client) => {
-  if (err) {
-    console.log(err)
-  } else {
-    database = client.db('insta-shop')
-    console.log('You\'ve got a DB!!!!')
-  }
-})
 
 function getAllProducts (userId) {
   const collection = database.collection('products')
