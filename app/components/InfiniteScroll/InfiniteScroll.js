@@ -9,7 +9,6 @@ export default class Sidebar extends Component {
     this.state = {
       offset: props.offset || 200,
       loading: false,
-      node: null,
       maxScroll: 0
     }
     this.checkScroll = throttle(this.checkScroll.bind(this), 200, {later: false})
@@ -26,15 +25,15 @@ export default class Sidebar extends Component {
 
   startListening () {
     this.stopListening()
-    this.state.node.addEventListener('scroll', this.checkScroll)
+    this.node.addEventListener('scroll', this.checkScroll)
   }
 
   stopListening () {
-    this.state.node.removeEventListener('scroll', this.checkScroll)
+    this.node.removeEventListener('scroll', this.checkScroll)
   }
 
   checkScroll () {
-    const { scrollHeight: outerHeight, clientHeight: innerHeight, scrollTop: scroll } = this.state.node
+    const { scrollHeight: outerHeight, clientHeight: innerHeight, scrollTop: scroll } = this.node
     const diff = outerHeight - (innerHeight + scroll)
     const shouldLoad = scroll > this.state.maxScroll && diff < this.state.offset && !this.state.loading
 
@@ -52,8 +51,9 @@ export default class Sidebar extends Component {
     })
   }
 
-  render () {
-    const getRef = (node) => this.setState({ node })
+  render (props, state) {
+    console.log('render scroll ', state)
+    const getRef = (node) => { this.node = node }
     const loading = this.state.loading ? <div class='infiniteScroll-loading' /> : null
     const stopFunction = this.stopListening.bind(this)
 
