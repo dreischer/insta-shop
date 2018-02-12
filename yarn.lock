@@ -4014,9 +4014,9 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
-tiny-atom@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/tiny-atom/-/tiny-atom-0.4.0.tgz#e3580c41296859b19ed822b3d130d14efbc0f6eb"
+tiny-atom@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tiny-atom/-/tiny-atom-1.0.1.tgz#402c8ff8b60e6a9a0efabfdc0c8f67853df7c96e"
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"

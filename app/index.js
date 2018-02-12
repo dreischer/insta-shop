@@ -11,19 +11,27 @@ window.axios = axios
 
 let root
 
-const atom = createAtom({
-  user: getSavedUserInfo() || null,
-  feed: {
-    nodes: null,
-    nextPointer: null,
-    hasNextPage: true
-  },
-  products: null,
-  selection: {
-    nodes: null,
-    selectionIds: null
-  }
-}, evolve, render)
+function initialState () {
+  return Object.assign({},
+    {
+      user: getSavedUserInfo() || {},
+      feed: {
+        nodes: null,
+        nextPointer: null,
+        hasNextPage: true
+      },
+      products: null,
+      selection: {
+        nodes: null,
+        selectionIds: null
+      }
+    }
+  )
+}
+
+const atom = createAtom(initialState(), evolve, render, {
+  debug: console.log
+})
 
 function evolve (getState, split, action) {}
 
