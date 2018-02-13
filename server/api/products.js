@@ -1,17 +1,29 @@
-const config = require('config')
-const MongoClient = require('mongodb').MongoClient
+const jwtCheck = require('../auth/jwt')
+const database = require('../db/db.js').getDB()
 const ObjectID = require('mongodb').ObjectID
 
-let database
-
-MongoClient.connect(config.db.url, (err, client) => {
-  if (err) {
-    console.log(err)
-  } else {
-    database = client.db('insta-shop')
-    console.log('You\'ve got a DB!!!!')
-  }
-})
+function routes (app) {
+  app.get('/api/admin/products', jwtCheck, function (req, res) {
+    getAllProducts(req.user.sub).then(function (result) {
+      res.send(result)
+    })
+  })
+  app.post('/api/admin/products', jwtCheck, function (req, res) {
+    addProduct(req.user.sub, req.body).then(function (result) {
+      res.send(result)
+    })
+  })
+  app.delete('/api/admin/products/:_id', jwtCheck, function (req, res) {
+    deleteProduct(req.user.sub, req.params._id).then(function (result) {
+      res.send(result)
+    })
+  })
+  app.put('/api/admin/products/:_id', jwtCheck, function (req, res) {
+    updateProduct(req.user.sub, req.params._id, req.body).then(function (result) {
+      res.send(result)
+    })
+  })
+}
 
 function getAllProducts (userId) {
   const collection = database.collection('products')
@@ -61,9 +73,4 @@ function updateProduct (userId, _id, payload) {
   })
 }
 
-module.exports = {
-  addProduct,
-  getAllProducts,
-  deleteProduct,
-  updateProduct
-}
+module.exports = routes

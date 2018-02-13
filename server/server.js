@@ -1,11 +1,10 @@
 const config = require('config')
 const express = require('express')
 const path = require('path')
-const jwt = require('express-jwt')
-const jwks = require('jwks-rsa')
 const bodyParser = require('body-parser')
 const instagramFeed = require('./api/instagramFeed')
-const products = require('./api/products')
+const jwtCheck = require('./auth/jwt')
+const db = require('./db/db')
 
 const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = express()
@@ -19,16 +18,8 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 if (dev) require('../webpack-dev')(app)
 
-var jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${config.auth0.id}.eu.auth0.com/.well-known/jwks.json`
-  }),
-  audience: config.auth0.app.audience,
-  issuer: `https://${config.auth0.id}.eu.auth0.com/`,
-  algorithms: ['RS256']
+db.connect().then(() => {
+  require('./api/products')(app)
 })
 
 app.get('/api/admin/feed', jwtCheck, function (req, res) {
@@ -37,29 +28,7 @@ app.get('/api/admin/feed', jwtCheck, function (req, res) {
     .catch(err => res.status((err.response && err.response.data.statusCode) || 500).send(err.response.data))
 })
 
-// Product catalogue
-app.get('/api/admin/products', jwtCheck, function (req, res) {
-  products.getAllProducts(req.user.sub).then(function (result) {
-    res.send(result)
-  })
-})
-app.post('/api/admin/products', jwtCheck, function (req, res) {
-  products.addProduct(req.user.sub, req.body).then(function (result) {
-    res.send(result)
-  })
-})
-app.delete('/api/admin/products/:_id', jwtCheck, function (req, res) {
-  products.deleteProduct(req.user.sub, req.params._id).then(function (result) {
-    res.send(result)
-  })
-})
-app.put('/api/admin/products/:_id', jwtCheck, function (req, res) {
-  products.updateProduct(req.user.sub, req.params._id, req.body).then(function (result) {
-    res.send(result)
-  })
-})
-
-app.get('*', function (request, response) {
+app.get(/^\/[^api]/, function (request, response) {
   response.sendFile(path.resolve(__dirname, '../public/index.html'))
 })
 
