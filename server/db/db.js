@@ -4,22 +4,11 @@ const MongoClient = require('mongodb').MongoClient
 let database
 
 async function connect () {
-  return new Promise(function (resolve, reject) {
-    MongoClient.connect(config.db.url, (err, client) => {
-      if (err) {
-        reject(err)
-      } else {
-        database = client.db('insta-shop')
-        resolve()
-      }
-    })
-  })
+  var client = await MongoClient.connect(config.db.url)
+  database = client.db('insta-shop')
 }
 
-const getDB = () => {
-  console.log('~~~~~~~~~~~~~~~~~~~~')
-  return database
-}
+const getDB = () => database
 const disconnect = () => database.close()
 
 module.exports = { connect, getDB, disconnect }
