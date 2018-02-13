@@ -28,7 +28,8 @@ app.get('/api/admin/feed', jwtCheck, function (req, res) {
     .catch(err => res.status((err.response && err.response.data.statusCode) || 500).send(err.response.data))
 })
 
-app.get(/^\/[^api]/, function (request, response) {
+// catch all as long as it's not an API
+app.get(/^(?!\/api).+/, function (request, response) {
   response.sendFile(path.resolve(__dirname, '../public/index.html'))
 })
 
