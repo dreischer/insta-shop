@@ -1,5 +1,6 @@
 const config = require('config')
 const express = require('express')
+const compression = require('compression')
 const path = require('path')
 const bodyParser = require('body-parser')
 const instagramFeed = require('./api/instagramFeed')
@@ -10,11 +11,11 @@ const dev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const app = express()
 
 app.use(bodyParser.json())
+app.use(compression())
+app.use(express.static(path.join(__dirname, '../public')))
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-
-app.use(express.static(path.join(__dirname, '../public')))
 
 if (dev) require('../webpack-dev')(app)
 
