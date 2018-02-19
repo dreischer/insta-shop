@@ -1,5 +1,6 @@
 import React, { Component } from 'preact'
 import Button from '../../../components/Button'
+import Modal from '../../../components/Modal'
 import * as ProductApi from './ProductApi'
 
 class Row extends Component {
@@ -92,26 +93,19 @@ export default class ProductBox extends Component {
     }
 
     return (
-      <div class='product-modal'>
-        <div class='product-modal-overlay' onClick={props.close} />
-        <div class='product-modal-box'>
-          <div class='product-modal-close' onClick={props.close}>{'×'}</div>
-          <div class='product-modal-header'>{config.header}</div>
-          <div class='product-modal-body'>
-            <div class='product-modal-left'>
-              <img src={product.image} />
-            </div>
-            <div class='product-modal-right'>
-              <Row onChange={this.changeHandler('id').bind(this)} label={'ID'} type={'text'} value={product.id} />
-              <Row onChange={this.changeHandler('name').bind(this)} label={'Name'} type={'text'} value={product.name} />
-              <Row onChange={this.changeHandler('url').bind(this)} label={'Link'} type={'text'} value={product.url} />
-              <Row onChange={this.changeHandler('image').bind(this)} label={'Image'} type={'text'} value={product.image} />
-              <Row onChange={this.changeHandler('active').bind(this)} label={'Enabled'} type={'checkbox'} value={product.active} />
-            </div>
-            {config.buttons}
-          </div>
+      <Modal {...props} header={config.header}>
+        <div class='product-modal-left'>
+          <img src={product.image} />
         </div>
-      </div>
+        <div class='product-modal-right'>
+          <Row onChange={this.changeHandler('id').bind(this)} label={'ID'} type={'text'} value={product.id} />
+          <Row onChange={this.changeHandler('name').bind(this)} label={'Name'} type={'text'} value={product.name} />
+          <Row onChange={this.changeHandler('url').bind(this)} label={'Link'} type={'text'} value={product.url} />
+          <Row onChange={this.changeHandler('image').bind(this)} label={'Image'} type={'text'} value={product.image} />
+          <Row onChange={this.changeHandler('active').bind(this)} label={'Enabled'} type={'checkbox'} value={product.active} />
+        </div>
+        {config.buttons}
+      </Modal>
     )
   }
 }
