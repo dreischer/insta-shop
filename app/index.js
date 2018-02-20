@@ -2,7 +2,7 @@ import React from 'preact'
 import axios from 'axios'
 import createAtom from 'tiny-atom'
 
-import { getSavedUserInfo } from './utils/Auth'
+import { getSavedUserInfo } from './utils/auth'
 import App from './App'
 
 window.Promise = window.Promise || require('es6-promise').Promise

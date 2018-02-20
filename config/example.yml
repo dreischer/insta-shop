@@ -1,15 +1,11 @@
 port: 4000
 auth0:
   id: ''
-  app:
+  client:
     clientID: ''
     redirectUri: ''
     audience: ''
     responseType: ''
     scope: ''
-  server:
-    client_id: ''
-    client_secret: ''
-    grant_type: ''
 db:
   url: ''

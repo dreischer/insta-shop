@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../../../utils/Auth'
+import { getToken } from '../../../utils/auth'
 
 const config = {
   headers: {

@@ -1,6 +1,6 @@
 import React, { Component } from 'preact'
 import { Link } from 'preact-router'
-import { logout } from '../../utils/Auth'
+import { logout } from '../../utils/auth'
 
 import './Header.css'
 

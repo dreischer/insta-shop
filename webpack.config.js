@@ -1,5 +1,14 @@
 const webpack = require('webpack')
 const path = require('path')
+const config = require('config')
+const fs = require('fs')
+
+// public entries from config
+fs.writeFileSync(path.resolve(__dirname, 'config/public.json'), JSON.stringify({
+  auth0: {
+    client: config.auth0.client
+  }
+}))
 
 module.exports = {
   entry: [
@@ -31,5 +40,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-  ]
+  ],
+  resolve: {
+    alias: {
+      config: path.resolve(__dirname, 'config/public.json')
+    }
+  }
 }

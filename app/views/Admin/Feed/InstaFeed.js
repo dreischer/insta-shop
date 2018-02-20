@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { Component } from 'preact'
-import { getSavedUserInfo } from '../../../utils/Auth'
+import { getSavedUserInfo } from '../../../utils/auth'
 import InfiniteScroll from '../../../components/InfiniteScroll'
 import Image from '../../../components/Image'
 

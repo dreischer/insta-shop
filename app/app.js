@@ -1,7 +1,7 @@
 import React from 'preact'
 import Router from 'preact-router'
 
-import { isAuthenticated, login } from './utils/Auth'
+import { isAuthenticated, login } from './utils/auth'
 import Header from './components/Header'
 import Home from './views/Home'
 import NotFound from './views/NotFound'

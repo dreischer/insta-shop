@@ -1,13 +1,7 @@
+import config from 'config'
 import { WebAuth } from 'auth0-js'
 
-const auth = new WebAuth({
-  domain: 'insta-shop.eu.auth0.com',
-  clientID: 'D3YH7UPhP9GkinKMj4X2SEVTRpvvW56i',
-  redirectUri: 'http://localhost:4000/callback',
-  audience: 'http://localhost:4000/ig',
-  responseType: 'token id_token',
-  scope: 'read:users read:user_idp_tokens openid profile'
-})
+const auth = new WebAuth(config.auth0.client)
 
 function login () {
   auth.authorize()

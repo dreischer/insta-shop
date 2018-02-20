@@ -9,7 +9,7 @@ module.exports = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: `https://${config.auth0.id}.eu.auth0.com/.well-known/jwks.json`
   }),
-  audience: config.auth0.app.audience,
+  audience: config.auth0.client.audience,
   issuer: `https://${config.auth0.id}.eu.auth0.com/`,
   algorithms: ['RS256']
 })

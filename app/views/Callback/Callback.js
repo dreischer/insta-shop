@@ -1,5 +1,5 @@
 import { Component } from 'preact'
-import { handleAuthentication, getUserInfo, saveUserInfo } from '../../utils/Auth'
+import { handleAuthentication, getUserInfo, saveUserInfo } from '../../utils/auth'
 
 export default class Callback extends Component {
   componentDidMount () {
