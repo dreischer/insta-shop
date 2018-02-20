@@ -2,6 +2,7 @@ port: 4000
 auth0:
   id: ''
   client:
+    domain: ''
     clientID: ''
     redirectUri: ''
     audience: ''
