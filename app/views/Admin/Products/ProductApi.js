@@ -24,6 +24,7 @@ function deleteProduct (_id) {
 }
 
 function validateProduct (data) {
+  // TODO return array of errors
   return []
 }
 

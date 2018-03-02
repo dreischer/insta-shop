@@ -32,10 +32,10 @@ function getAllProducts (userId) {
   return collection.find(query).sort({ts_modified: -1}).toArray()
 }
 
-function addProduct (user, payload) {
+function addProduct (userId, payload) {
   const ts = Date.now()
   const data = Object.assign({}, payload, {
-    userId: user,
+    userId,
     ts_created: ts,
     ts_modified: ts
   })
@@ -51,10 +51,13 @@ function deleteProduct (userId, _id) {
 
 function updateProduct (userId, _id, payload) {
   const query = { userId, _id: ObjectID(_id) }
-  payload.ts_modified = Date.now()
-  delete payload._id
+  const data = Object.assign({}, payload, {
+    userId,
+    ts_modified: Date.now()
+  })
+  delete data._id
 
-  return collection.findOneAndUpdate(query, payload)
+  return collection.findOneAndUpdate(query, data)
 }
 
 module.exports = routes
