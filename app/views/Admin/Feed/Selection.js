@@ -1,5 +1,6 @@
 import React, { Component } from 'preact'
 import Image from '../../../components/Image'
+import Tag from '../../../components/Tag'
 import Modal from '../../../components/Modal'
 
 export default class Selection extends Component {
@@ -16,7 +17,11 @@ export default class Selection extends Component {
 
     return (
       <Modal header={header} close={close}>
-        <img src={this.state.activeImage.thumbnail_resources[2].src} />
+        <div class='selection-box-left'>
+          <Tag>
+            <img src={this.state.activeImage.low_res} />
+          </Tag>
+        </div>
       </Modal>
     )
   }

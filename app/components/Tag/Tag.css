@@ -1,0 +1,17 @@
+.tag-container {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.tag {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #00000078;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  line-height: 15px;
+}

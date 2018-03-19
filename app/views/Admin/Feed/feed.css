@@ -2,3 +2,10 @@
   lost-column: 1/2;
   height: 100%;
 }
+.selection-box-left {
+  width: 50%;
+}
+.selection-box-left img {
+  width: 100%;
+  height: auto;
+}

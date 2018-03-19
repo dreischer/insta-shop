@@ -29,7 +29,7 @@ function routes (app) {
 function getAllProducts (userId) {
   const query = { userId }
 
-  return collection.find(query).sort({ts_modified: -1}).toArray()
+  return collection.find(query).sort({ ts_modified: -1 }).toArray()
 }
 
 function addProduct (userId, payload) {
