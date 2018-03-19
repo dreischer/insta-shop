@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component } from 'preact'
 import { getSavedUserInfo } from '../../../utils/auth'
+import mapImage from '../../../utils/map-image'
 import InfiniteScroll from '../../../components/InfiniteScroll'
 import Image from '../../../components/Image'
 
@@ -15,9 +16,9 @@ export default class InstaFeed extends Component {
     }
   }
 
-  setFeed (media) {
-    const nodes = [...this.state.nodes, ...media.nodes]
-    const { has_next_page: hasNextPage, end_cursor: nextPointer } = media.page_info
+  setFeed (images, pageInfo) {
+    const nodes = [...this.state.nodes, ...images]
+    const { has_next_page: hasNextPage, end_cursor: nextPointer } = pageInfo
     const feed = { nodes, nextPointer, hasNextPage }
 
     this.setState({ ...feed })
@@ -34,7 +35,12 @@ export default class InstaFeed extends Component {
     const userName = getSavedUserInfo().nickname
     const url = `https://www.instagram.com/${userName}/?__a=1`
 
-    return axios.get(url + nextParam).then(respons => this.setFeed(respons.data.user.media))
+    return axios.get(url + nextParam).then(response => {
+      const images = response.data.graphql.user.edge_owner_to_timeline_media.edges.map(mapImage)
+      const pageInfo = response.data.graphql.user.edge_owner_to_timeline_media.page_info
+
+      this.setFeed(images, pageInfo)
+    })
   }
 
   feed (stop) {

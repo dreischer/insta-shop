@@ -9,7 +9,7 @@ export default class Image extends Component {
 
     return (
       <div onClick={onClick} class={className}>
-        <img src={image.thumbnail_resources[2].src} />
+        <img src={image.low_res} />
       </div>
     )
   }
