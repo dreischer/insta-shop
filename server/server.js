@@ -19,6 +19,8 @@ if (dev) require('../webpack-dev')(app)
 
 db.connect().then(() => {
   require('./api/products')(app)
+  require('./api/feed')(app)
+  require('./api/public')(app)
 })
 
 // catch all as long as it's not an API
