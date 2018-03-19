@@ -1,24 +1,24 @@
 import React, { Component } from 'preact'
+import getRandom from '../../utils/get-random'
 
 import './Tag.css'
 
 class ProductSelect extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      active: props.tag.active || false
-    }
-  }
-
   render (props, state) {
-    const box = state.active ? <div>{'BOX'}</div> : null
+    return (<div class='product-select'>{'BOX'}</div>)
+  }
+}
+
+class Tag extends Component {
+  render (props, state) {
+    const box = props.active ? <ProductSelect /> : null
     const style = {
       top: props.tag.top + '%',
       left: props.tag.left + '%'
     }
 
     return (
-      <div class='tag' style={style}>
+      <div onClick={props.onClick} class='tag' style={style}>
         { box }
         <span>{'+'}</span>
       </div>
@@ -26,11 +26,12 @@ class ProductSelect extends Component {
   }
 }
 
-export default class Tag extends Component {
+export default class TagArea extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      tags: []
+      tags: [],
+      active: null
     }
   }
 
@@ -39,7 +40,13 @@ export default class Tag extends Component {
   }
 
   getProducts () {
-    return this.state.tags.map(tag => <ProductSelect tag={tag} />)
+    return this.state.tags.map(tag => {
+      const active = tag.id === this.state.active
+      const onClick = () => this.setState({
+        active: tag.id
+      })
+      return <Tag onClick={onClick} tag={tag} active={active} />
+    })
   }
 
   clickHandler (e) {
@@ -51,11 +58,12 @@ export default class Tag extends Component {
       left: ((e.offsetX - 10) / e.target.width * 100).toFixed(2),
       top: ((e.offsetY - 10) / e.target.height * 100).toFixed(2),
       product: {},
-      active: true
+      id: getRandom()
     }
 
     this.setState({
-      tags: [...this.state.tags, tag]
+      tags: [...this.state.tags, tag],
+      active: tag.id
     })
   }
 

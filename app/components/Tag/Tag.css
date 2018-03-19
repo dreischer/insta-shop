@@ -15,3 +15,11 @@
   text-align: center;
   line-height: 15px;
 }
+
+.product-select {
+  position: absolute;
+  bottom: -20px;
+  left: -40px;
+  width: 100px;
+  border: 1px solid #fff;
+}
