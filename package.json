@@ -23,6 +23,7 @@
     "preact": "^8.1.0",
     "preact-router": "^2.5.2",
     "precss": "^3.1.0",
+    "react-select": "^2.0.0-alpha.8",
     "tiny-atom": "^1.0.1"
   },
   "devDependencies": {
