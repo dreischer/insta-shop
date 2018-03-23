@@ -59,11 +59,13 @@ export default class ProductBox extends Component {
       // TODO show warning
     }
   }
+
   deleteProduct () {
     ProductApi.deleteProduct(this.state.product._id)
     this.props.onDelete()
     this.props.close()
   }
+
   updateProduct () {
     ProductApi.updateProduct(this.state.product._id, this.state.product)
     this.props.onUpdate(this.state.product)

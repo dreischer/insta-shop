@@ -1,6 +1,7 @@
 import React from 'preact'
 import axios from 'axios'
 import createAtom from 'tiny-atom'
+import { ProvideAtom } from 'tiny-atom/preact'
 
 import { getSavedUserInfo } from './utils/auth'
 import App from './App'
@@ -38,7 +39,11 @@ function evolve (getState, split, action) {}
 render()
 
 function render () {
-  root = React.render(<App atom={atom} />, document.getElementById('root'), root)
+  root = React.render((
+    <ProvideAtom atom={atom}>
+      <App atom={atom} />
+    </ProvideAtom>
+  ), document.getElementById('root'), root)
 }
 
 // in development, set up HMR:

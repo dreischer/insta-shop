@@ -1,6 +1,7 @@
 import React, { Component } from 'preact'
 import { getAllProducts } from './ProductApi'
 import ProductBox from './ProductBox'
+import { ConnectAtom } from 'tiny-atom/preact'
 
 import './Products.css'
 
@@ -38,11 +39,10 @@ class Product extends Component {
   render (props, state) {
     const toggle = (e) => this.setState({ edit: !this.state.edit })
     const enabled = props.data.active ? '' : 'disabled'
-    const className = `product ${enabled}`
     const editWindow = state.edit ? <ProductBox {...props} close={toggle} /> : null
 
     return (
-      <div class={className} >
+      <div class={`product ${enabled}`} >
         {editWindow}
         <div class='product-edit' onClick={toggle}><span /></div>
         <img src={props.data.image} />
@@ -55,9 +55,8 @@ class Product extends Component {
 export default class Feed extends Component {
   constructor (props) {
     super(props)
-    const atom = props.atom.get()
     this.state = {
-      products: atom.products || null
+      modalActive: false
     }
   }
 
@@ -104,14 +103,23 @@ export default class Feed extends Component {
     })
   }
 
+  editProduct (id) {
+    this.setState({})
+  }
+
   render (props, state) {
     const content = state.products ? this.getProducts() : 'Loading...'
+    const toggle = (e) => this.setState({ edit: !this.state.modalActive })
+    const modal = this.state.modalActive ? <ProductBox {...props} close={toggle} /> : null
 
     return (
-      <div class='products-container'>
-        <NewProduct onAdd={this.addProduct.bind(this)} />
-        {content}
-      </div>
+      <ConnectAtom render={({ state, split }) => (
+        <div class='products-container'>
+          { modal }
+          <NewProduct onAdd={this.addProduct.bind(this)} />
+          {content}
+        </div>
+      )} />
     )
   }
 }
